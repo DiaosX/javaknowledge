@@ -2,7 +2,7 @@ package com.my.javabasic.enumtype;
 
 /*
 枚举类型是JDK1.5进入
-所有的枚举类型隐士集成 java.lang.Enum抽象类
+所有的枚举类型隐式继承 java.lang.Enum抽象类
  */
 public enum CustomEnum {
 
