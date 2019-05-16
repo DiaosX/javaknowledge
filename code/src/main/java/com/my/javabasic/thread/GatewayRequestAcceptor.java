@@ -40,7 +40,6 @@ public class GatewayRequestAcceptor {
         try {
             GatewayResponse response = task.get();
             printRequestorCount();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

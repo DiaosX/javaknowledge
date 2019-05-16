@@ -88,6 +88,9 @@ public class ThreadTest {
         System.out.println("thread: id=" + thread.getId() + ",state=" + thread.getState().toString());
     }
 
+    /**
+     * 使用join同步多个线程
+     */
     @Test
     public void joinThreads() {
         try {
@@ -119,19 +122,18 @@ public class ThreadTest {
     public void gatewayPrototype() {
         GatewayRequestAcceptor acceptor = new GatewayRequestAcceptor();
         try {
+            //初始时模拟300个请求
             for (int i = 0; i < 300; i++) {
                 GatewayRequestor requestor = new GatewayRequestor(acceptor);
-                FutureTask<Boolean> promise = new FutureTask<>(requestor);
-                Thread t = new Thread(promise);
-                t.start();
+                requestor.start();
             }
             System.out.println("当前请求队列中请求个数：" + acceptor.getCurrentRequestorCount());
-            new GatewayRequestHandlerManager(acceptor);
+            //启动请求处理者
+            new GatewayRequestHandlerManager(acceptor).start();
             while (true) {
                 GatewayRequestor requestor = new GatewayRequestor(acceptor);
-                FutureTask<Boolean> promise = new FutureTask<>(requestor);
-                Thread t = new Thread(promise);
-                t.start();
+                requestor.start();
+
                 ThreadGroup currentGroup = Thread.currentThread().getThreadGroup();
                 System.out.println("当前激活的线程数：" + currentGroup.activeCount());
                 Thread.sleep(10);

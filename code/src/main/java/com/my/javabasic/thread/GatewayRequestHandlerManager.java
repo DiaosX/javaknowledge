@@ -12,17 +12,12 @@ public class GatewayRequestHandlerManager {
     public GatewayRequestHandlerManager(GatewayRequestAcceptor acceptor) {
         this.acceptor = acceptor;
         this.handlers = new ArrayList<>();
+        GatewayRequestHandler defaultHandler = new GatewayRequestHandler(acceptor);
+        this.add(defaultHandler);
     }
 
-    public boolean response(String requestId) {
-        try {
-            //模拟处理耗时，2s后返回处理结果
-            Thread.sleep(10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.acceptor.complete(requestId, GatewayResponse.success());
-        return true;
+    public boolean add(GatewayRequestHandler handler) {
+        return this.handlers.add(handler);
     }
 
     public void start() {
