@@ -1,5 +1,6 @@
 package com.my.javabasic;
 
+import com.my.javabasic.designpattern.decorate.*;
 import com.my.javabasic.designpattern.proxy.*;
 import com.my.javabasic.designpattern.singleton.HungrySingleton;
 import com.my.javabasic.designpattern.singleton.LazySingleton;
@@ -94,5 +95,22 @@ public class DesignPatternTest {
         AbstractApprover approverProxy = (AbstractApprover) cglibProxy.newProxyInstance(approver);
         approverProxy.approve("请假申请");
         approverProxy.getAdvice();
+    }
+
+    /**
+     * 测试基于Cglib的动态代理
+     */
+    @Test
+    public void testDecorate() {
+        ICup normalCup = new Cup();
+        System.out.println("正常杯子：" + normalCup.getCup().toString());
+
+        //在正常杯子的基础上增加保温功能
+        normalCup = new KeepWarmCup(normalCup);
+        System.out.println("保温杯子：" + normalCup.getCup().toString());
+
+        //在正常杯子的基础上涂上红色
+        normalCup = new RedColorCup(normalCup);
+        System.out.println("红色杯子：" + normalCup.getCup().toString());
     }
 }
