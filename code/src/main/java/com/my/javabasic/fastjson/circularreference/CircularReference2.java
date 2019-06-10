@@ -1,4 +1,4 @@
-package com.my.javabasic.fastjson;
+package com.my.javabasic.fastjson.circularreference;
 
 public class CircularReference2 {
 

@@ -1,4 +1,4 @@
-package com.my.javabasic.fastjson;
+package com.my.javabasic.fastjson.basic;
 
 public class Address {
     public String getCity() {

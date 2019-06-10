@@ -113,4 +113,15 @@ public class DesignPatternTest {
         normalCup = new RedColorCup(normalCup);
         System.out.println("红色杯子：" + normalCup.getCup().toString());
     }
+
+
+    /**
+     * 状态模式测试
+     */
+    @Test
+    public void testState() {
+
+
+    }
+
 }

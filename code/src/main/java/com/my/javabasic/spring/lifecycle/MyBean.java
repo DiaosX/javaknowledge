@@ -1,4 +1,4 @@
-package com.my.javabasic.spring;
+package com.my.javabasic.spring.lifecycle;
 
 
 import org.springframework.beans.factory.BeanNameAware;
@@ -33,6 +33,16 @@ import javax.annotation.PostConstruct;
 
 /*
 Bean级生命周期接口解决Bean个性化处理的问题，Bean容器级生命周期接口解决容器中某些Bean共性化处理的问题。
+ */
+
+/*
+Bean的作用域：
+Singleton: spring默认缺省的，全局只有一个对象
+prototype:每次获取bean时，容器都都创建新的实例返回，有状态的Bean建议用此类型
+request:每次Http请求都会创建bean,仅在当前Http Request内有效,仅适用于WebApplicationContext环境
+session:同一个http请求共享一个bean,不通session使用不通的bean,仅在当前Session内有效。仅使用于WebApplicationContext
+global session:一个全局的Http Session中，容器返回同一个实例Bean。
+
  */
 
 
