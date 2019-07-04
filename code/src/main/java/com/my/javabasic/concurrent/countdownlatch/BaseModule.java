@@ -27,6 +27,7 @@ public abstract class BaseModule extends Thread {
             e.printStackTrace();
             this.moduleReady = false;
         } finally {
+            //当子任务完成时计数器减1操作，发出通知标识此子任务已经完成
             this.countDownLatch.countDown();
         }
     }
