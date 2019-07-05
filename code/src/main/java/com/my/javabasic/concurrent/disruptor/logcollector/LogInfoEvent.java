@@ -1,7 +1,52 @@
 package com.my.javabasic.concurrent.disruptor.logcollector;
 
+import com.lmax.disruptor.EventFactory;
+import com.lmax.disruptor.EventTranslatorOneArg;
+
 public class LogInfoEvent {
+    /**
+     * 定义事件工厂
+     */
+    public static final EventFactory<LogInfoEvent> EVENT_FACTORY = new EventFactory<LogInfoEvent>() {
+        public LogInfoEvent newInstance() {
+            return new LogInfoEvent();
+        }
+    };
+
+    /**
+     * 定义TRANSLATOR
+     * EventTranslatorVararg<T></>:多个参数
+     * EventTranslatorOneArg<T,A></>:一个参数
+     * EventTranslatorTwoArg<T,A,B>:两个参数
+     * EventTranslatorTwoArg<T,A,B,C>：三个参数
+     */
+    public static final EventTranslatorOneArg<LogInfoEvent, LogInfo> TRANSLATOR = new EventTranslatorOneArg<LogInfoEvent, LogInfo>() {
+        @Override
+        public void translateTo(LogInfoEvent event, long sequence, LogInfo logInfo) {
+            event.setAppName(logInfo.getAppName());
+            event.setChainId(logInfo.getChainId());
+            event.setMessage(logInfo.getMessage());
+            event.setTag(logInfo.getTag());
+            event.setMethodName(logInfo.getMethodName());
+            event.setTrackId(logInfo.getTrackId());
+            event.setParentTrackId(logInfo.getParentTrackId());
+            event.setCreateTime(logInfo.getCreateTime());
+            event.setInput(logInfo.getInput());
+            event.setOutput(logInfo.getOutput());
+        }
+    };
+
     private String message;
+    private String tag;
+    private String createTime;
+    private double useTime;
+    private String appName;
+    private String methodName;
+    private String chainId;
+    private String trackId;
+    private String parentTrackId;
+    private String input;
+    private String output;
 
     public String getMessage() {
         return message;
@@ -90,15 +135,4 @@ public class LogInfoEvent {
     public void setOutput(String output) {
         this.output = output;
     }
-
-    private String tag;
-    private String createTime;
-    private double useTime;
-    private String appName;
-    private String methodName;
-    private String chainId;
-    private String trackId;
-    private String parentTrackId;
-    private String input;
-    private String output;
 }
