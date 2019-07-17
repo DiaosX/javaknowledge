@@ -1,4 +1,4 @@
-package com.my.javabasic.ThreadPool;
+package com.my.javabasic.threadpool;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

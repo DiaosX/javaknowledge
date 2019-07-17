@@ -1,7 +1,7 @@
 package com.my.javabasic;
 
 
-import com.my.javabasic.ThreadPool.*;
+import com.my.javabasic.threadpool.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

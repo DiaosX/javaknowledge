@@ -1,4 +1,4 @@
-package com.my.javabasic.ThreadPool;
+package com.my.javabasic.threadpool;
 
 import java.util.concurrent.AbstractExecutorService;
 import java.util.concurrent.CountDownLatch;

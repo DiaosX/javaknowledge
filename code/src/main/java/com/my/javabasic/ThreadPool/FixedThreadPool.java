@@ -1,4 +1,4 @@
-package com.my.javabasic.ThreadPool;
+package com.my.javabasic.threadpool;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
