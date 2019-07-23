@@ -13,7 +13,7 @@ import java.util.concurrent.CountDownLatch;
 *
 * CountDownLatch和CyclicBarrier之间的区别？
 * --CountDownLatch不可重用而CyclicBarrier可以重用（reset方法）
-* --CountDownLatch是等待其他任务完成，而CyclicBarrier是等待其他线程
+* --CountDownLatch是等待其他任务完成，而CyclicBarrier是等待其他线程集合到屏障处
 *
 * 给出CountDownLatch的一些示例用法？
 * --框架启动时等待其他服务线程已经完成所有服务

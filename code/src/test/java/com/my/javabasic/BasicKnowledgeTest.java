@@ -1,5 +1,7 @@
 package com.my.javabasic;
 
+import com.my.javabasic.basicknowledge.InstantiateOrder;
+import com.my.javabasic.basicknowledge.InstantiateOrderParent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -55,5 +57,11 @@ public class BasicKnowledgeTest {
     private void tryChangeOriginValue(Integer i1) {
         System.out.println("进入外部方法时i1的内存地址为：" + System.identityHashCode(i1));
         i1 = new Integer(3000);
+    }
+
+    @Test
+    public void testInstantiateOrder() {
+        InstantiateOrderParent instance = new InstantiateOrder();
+        instance.print();
     }
 }

@@ -7,6 +7,8 @@ package com.my.javabasic.concurrent.lock;
  * 1.普通同步方法（实例方法），锁是当前实例对象 ，进入同步代码前要获得当前实例的锁
  * 2.静态同步方法，锁是当前类的class对象 ，进入同步代码前要获得当前类对象的锁
  * 3.同步方法块，锁是括号里面的对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁
+ * <p>
+ * synchronized属于可重入锁
  */
 public class SynchronizedTest {
 
