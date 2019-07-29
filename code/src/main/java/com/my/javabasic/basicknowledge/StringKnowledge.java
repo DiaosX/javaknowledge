@@ -127,5 +127,11 @@ public class StringKnowledge {
         //str1 = str1 + "love" + "java"; //2)
 
         //1)的效率比2)的效率高，1)中被
+
+
+        //2)的
+
+
+
     }
 }

@@ -1,6 +1,10 @@
 package com.my.javabasic;
 
 import com.my.javabasic.concurrent.lock.ReentrantLockTest;
+import com.my.javabasic.concurrent.lock.printcharbyordered.StringPrinterThreadA;
+import com.my.javabasic.concurrent.lock.printcharbyordered.StringPrinterThreadB;
+import com.my.javabasic.concurrent.lock.printcharbyordered.StringPrinterThreadC;
+import com.my.javabasic.concurrent.lock.printcharbyordered.StringPrinterThreadContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class Concurrent_Lock {
+public class Concurrent_Lock_ReentrantLock {
 
     @Test
     public void testReentrantLock_Fair() {
@@ -43,4 +47,18 @@ public class Concurrent_Lock {
             t.start();
         }
     }
+
+    @Test
+    public void testReentrantLockCondition() {
+
+        StringPrinterThreadContext context = new StringPrinterThreadContext(10);
+
+        StringPrinterThreadA threadA = new StringPrinterThreadA(context);
+        StringPrinterThreadB threadB = new StringPrinterThreadB(context);
+        StringPrinterThreadC threadC = new StringPrinterThreadC(context);
+        threadA.start();
+        threadB.start();
+        threadC.start();
+    }
+
 }
