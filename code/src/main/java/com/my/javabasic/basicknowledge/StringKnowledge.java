@@ -131,7 +131,37 @@ public class StringKnowledge {
 
         //2)的
 
+    }
 
+    public void frequentInterviewQuestions7() {
+         /*
+         * Java8 中优化后结果一样
+         * */
+        String str1 = "aaa" + "bbb";
 
+    }
+
+    public void frequentInterviewQuestions8() {
+        final String str3 = "bbb";
+        String str1 = str3 + "aaa";
+        System.out.println(str1);
+
+    }
+
+    public void frequentInterviewQuestions9() {
+        String str3 = new String("bbb");
+        String str1 = str3 + "aaa";
+        System.out.println(str1);
+
+    }
+
+    public void stringIntern() {
+        String s1 = new String("计算机");
+        String s2 = s1.intern();
+        String s3 = "计算机";
+        System.out.println(System.identityHashCode(s1));
+        System.out.println(System.identityHashCode(s2));
+        System.out.println("s1 == s2? " + (s1 == s2));
+        System.out.println("s3 == s2? " + (s3 == s2));
     }
 }

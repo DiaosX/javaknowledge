@@ -55,4 +55,10 @@ public class BasicKnowledge_String {
         StringKnowledge str = new StringKnowledge();
         str.frequentInterviewQuestions4();
     }
+
+    @Test
+    public void testStringIntern() {
+        StringKnowledge str = new StringKnowledge();
+        str.stringIntern();
+    }
 }

@@ -3,6 +3,13 @@ package com.my.javabasic.concurrent.lock.printcharbyordered;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+
+/**
+ * ConditionObject:是Condition接口的一个实现
+ * LockSupport:提供一个入口，通过这个入口操作线程的阻塞和恢复，LockSupport.park，LockSupport.unpark
+ * UNSAFE是封装了和操作系统底层交互的接口
+ */
+
 public class StringPrinterThreadContext {
 
     private int printLoop;
@@ -15,7 +22,7 @@ public class StringPrinterThreadContext {
     public int getPrintLoop() {
         return printLoop;
     }
-    
+
     public int getStatus() {
         return status;
     }

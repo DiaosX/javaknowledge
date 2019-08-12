@@ -1,11 +1,12 @@
-package com.my.javabasic.concurrent.lock;
+package com.my.javabasic.concurrent.lock.ReentrantLock1;
 
 import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
  * 可重入锁实现，基于AQS实现
  */
-public class ReentrantLockTest {
+public class VerifyReentrantLockFairness {
 
     //公平锁
     private ReentrantLock fairLock = new ReentrantLock(true);

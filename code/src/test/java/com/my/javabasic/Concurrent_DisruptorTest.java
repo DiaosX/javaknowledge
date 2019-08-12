@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class Concurrent_DisruptorTest {
-    static ExecutorService executor;
+    private static ExecutorService executor;
 
     @BeforeClass
     public static void init() {
@@ -103,7 +103,7 @@ public class Concurrent_DisruptorTest {
 
     private void doProduceLog(boolean isWorkPoolMode) {
         LogInfo info = new LogInfo();
-        info.setAppName("myapp");
+        info.setAppName("myApp");
         info.setMessage("Hello Disruptor");
         info.setInput("input");
         info.setOutput("output");
@@ -122,7 +122,7 @@ public class Concurrent_DisruptorTest {
     }
 
     @Test
-    public void testMultipProducer() {
+    public void testMultiProducer() {
         final int producerCount = 3;
         CountDownLatch latch = new CountDownLatch(producerCount);
         int batchSize = 50000;

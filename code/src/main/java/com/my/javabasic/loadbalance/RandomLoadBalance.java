@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class RandomLoadBalance extends AbstractLoadBalance {
     @Override
-    public String doSelect(List<String> invokers, String url) {
+    public String doSelect(List<WeightedNode> invokers) {
         int length = invokers.size();
-        return invokers.get(ThreadLocalRandom.current().nextInt(length));
+        return invokers.get(ThreadLocalRandom.current().nextInt(length)).getIp();
     }
 }

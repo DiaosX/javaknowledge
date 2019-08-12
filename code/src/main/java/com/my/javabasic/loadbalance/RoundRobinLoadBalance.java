@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class RoundRobinLoadBalance extends AbstractLoadBalance {
     @Override
-    public String doSelect(List<String> invokers, String url) {
+    public String doSelect(List<WeightedNode> invokers) {
         return null;
     }
 }

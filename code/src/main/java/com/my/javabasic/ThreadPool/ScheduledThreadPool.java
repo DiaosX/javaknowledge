@@ -19,6 +19,18 @@ public class ScheduledThreadPool {
             //submit和execute()都是调用的schedule(),而且将延时时间设置为了0，
             // 所以想要实现延时操作，需要直接调用schedule()
             pool.schedule(task, 1, TimeUnit.SECONDS);
+
+            try
+            {
+
+                TimeUnit.SECONDS.sleep(5);
+            }
+            catch (Exception e){
+
+
+            }
+
+
         }
     }
 
