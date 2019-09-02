@@ -23,14 +23,14 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
         if ("myBean".equals(beanName)) {
-            System.out.println(MyApplicationContextAware.nextStep() + ",bean初始化之前执行");
+            System.out.println(MyApplicationContextAware.nextStep() + ",bean实例化之前执行");
         }
         return null;
     }
 
 
     /**
-     * 当bean被初始化后执行，在属性赋值之前
+     * 当bean被实例化后执行，在属性赋值之前
      * 如果阻止属性注入，则返回false,并且当返回false时子的InstantiationAwareBeanPostProcessor实例也不会执行
      * 默认的实现返回true
      *
@@ -42,7 +42,7 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
     @Override
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         if ("myBean".equals(beanName)) {
-            System.out.println(MyApplicationContextAware.nextStep() + ",bean初始化之后执行");
+            System.out.println(MyApplicationContextAware.nextStep() + ",bean实例化之后执行");
         }
         //如果期望属性注入，这里必须返回true
         return true;

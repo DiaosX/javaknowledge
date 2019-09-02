@@ -10,12 +10,20 @@ import javax.annotation.PostConstruct;
 
 
 /*
- * Bean级生命周期接口: 在org.springframework.beans.factory 下，它们是Bean级生命周期接口，这些接口由Bean类直接实现
+ * Bean级生命周期接口: 在org.springframework.beans.factory 下，
+ * 它们是Bean级生命周期接口，这些接口由Bean类直接实现
  *
- * BeanNameAware=>void setBeanName(String beanName),待对象实例化并设置属性之后调用该方法设置BeanName
- * InitializingBean=>void afterPropertiesSet() throws Exception,实例化完成之后调用（调用了BeanPostProcessor.postProcessBeforeInitialization方法之后调用该方法）
- * BeanFactoryAware=> void setBeanFactory(BeanFactory var1) throws BeansException, 待调用setBeanName之后调用该方法设置BeanFactory，BeanFactory对象默认实现类是DefaultListableBeanFactory
- * DisposableBean=> void destroy() throws Exception, 关闭容器时调用
+ * BeanNameAware=>void setBeanName(String beanName),
+ *  待对象实例化并设置属性之后调用该方法设置BeanName
+ *
+ * InitializingBean=>void afterPropertiesSet() throws Exception,
+ *  实例化完成之后调用（调用了BeanPostProcessor.postProcessBeforeInitialization方法之后调用该方法）
+ *
+ * BeanFactoryAware=> void setBeanFactory(BeanFactory var1) throws BeansException,
+ *  待调用setBeanName之后调用该方法设置BeanFactory，BeanFactory对象默认实现类是DefaultListableBeanFactory
+ *
+ * DisposableBean=> void destroy() throws Exception,
+ *  关闭容器时调用
  */
 
 /*
@@ -84,6 +92,6 @@ public class MyBean implements BeanNameAware, InitializingBean {
 
     @PostConstruct
     public void init() {
-        System.out.println(MyApplicationContextAware.nextStep() + ",Mybean.init()");
+        System.out.println(MyApplicationContextAware.nextStep() + ",Mybean.PostConstruct()");
     }
 }

@@ -9,5 +9,4 @@ public class MyReadWriteLock {
         ReentrantReadWriteLock wrLock = new ReentrantReadWriteLock();
 
     }
-
 }

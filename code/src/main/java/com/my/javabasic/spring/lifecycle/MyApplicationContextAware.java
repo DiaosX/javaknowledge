@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 public class MyApplicationContextAware implements ApplicationContextAware {
     private static ApplicationContext context;
     private static Integer step = 0;
+    MyApplicationContextAware(){
+        int a=3;
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -29,5 +32,14 @@ public class MyApplicationContextAware implements ApplicationContextAware {
     public static Integer nextStep() {
         step++;
         return step;
+    }
+
+    public static <T> T getBean(Class<T> clazz) {
+        if (context == null) {
+            System.out.println("applicationContext是空的");
+        } else {
+            System.out.println("applicationContext不是空的");
+        }
+        return context.getBean(clazz);
     }
 }
