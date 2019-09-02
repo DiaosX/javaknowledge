@@ -1,36 +1,39 @@
 package com.my.javabasic.leetcode;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 class Solution {
 
     public ListNode1 partition(ListNode1 head, int x) {
         ListNode1 leftListHead = new ListNode1(0);
         ListNode1 rightListHead = new ListNode1(0);
-        //如果只有一个节点
+        //如果是空链表
         if (null == head) {
             return head;
         }
+        //如果只有一个节点
         if (null == head.next) {
             leftListHead.next = head;
             return leftListHead.next;
         }
+        long startTime = System.nanoTime();
+        splitSourceList2(leftListHead, rightListHead, head, x);
+        long endTime = System.nanoTime();
+        System.out.println("分隔耗时：" + (endTime - startTime));
 
-        splitSourceList(leftListHead, rightListHead, head, x);
+        long printStartTime = System.nanoTime();
+        //不是最后一个节点则继续往下执行
         if (leftListHead.next == null) {
             return rightListHead.next;
         }
         if (rightListHead.next == null) {
             return leftListHead.next;
         }
-
         ListNode1 leftLastNode = getLastNode(leftListHead);
         //如果左边链表为空，则直接输出右边量表
         if (leftLastNode != leftListHead) {
             leftLastNode.next = rightListHead.next;
         }
+        long printEndTime = System.nanoTime();
+        System.out.println("打印耗时：" + (printEndTime - printStartTime));
         return leftListHead.next;
     }
 
@@ -44,6 +47,14 @@ class Solution {
     }
 
 
+    /**
+     * 递归实现
+     *
+     * @param leftListHead
+     * @param rightListHead
+     * @param sourceList
+     * @param x
+     */
     private void splitSourceList(ListNode1 leftListHead, ListNode1 rightListHead, ListNode1 sourceList, int x) {
         if (null == sourceList) {
             return;
@@ -59,20 +70,41 @@ class Solution {
         ListNode1 nextRight = null == rightListHead.next ? rightListHead : rightListHead.next;
         splitSourceList(nextLeft, nextRight, sourceList.next, x);
     }
+
+    /**
+     * 非递归
+     *
+     * @param leftListHead
+     * @param rightListHead
+     * @param sourceList
+     * @param x
+     */
+    private void splitSourceList2(ListNode1 leftListHead, ListNode1 rightListHead, ListNode1 sourceList, int x) {
+
+        ListNode1 sourceTempNode = sourceList;
+        ListNode1 leftTempNode = leftListHead;
+        ListNode1 rightTempNode = rightListHead;
+        while (sourceTempNode != null) {
+            if (sourceTempNode.val >= x) {
+                ListNode1 rightNode = new ListNode1(sourceTempNode.val);
+                rightTempNode.next = rightNode;
+                rightTempNode = rightNode;
+            } else {
+                ListNode1 leftNode = new ListNode1(sourceTempNode.val);
+                leftTempNode.next = leftNode;
+                leftTempNode = leftNode;
+            }
+            sourceTempNode = sourceTempNode.next;
+        }
+    }
 }
 
 public class MainClass {
     public static int[] stringToIntegerArray(String input) {
-        input = input.trim();
-        input = input.substring(1, input.length() - 1);
-        if (input.length() == 0) {
-            return new int[0];
-        }
-
         String[] parts = input.split(",");
-        int[] output = new int[2];
-        for (int index = 0; index < 2; index++) {
-            String part = "1";
+        int[] output = new int[parts.length];
+        for (int index = 0; index < parts.length; index++) {
+            String part = parts[index];
             output[index] = Integer.parseInt(part);
         }
         return output;
@@ -104,19 +136,13 @@ public class MainClass {
         return "[" + result.substring(0, result.length() - 2) + "]";
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
-        ListNode1 head = stringToListNode("1,1");
-
-        int x = Integer.parseInt("0");
-
+    public static void main(String[] args) {
+        ListNode1 head = stringToListNode("1,4,3,2,5,2");
+        int x = Integer.parseInt("3");
         ListNode1 ret = new Solution().partition(head, x);
 
         String out = listNodeToString(ret);
-
         System.out.print(out);
-
     }
 
 
