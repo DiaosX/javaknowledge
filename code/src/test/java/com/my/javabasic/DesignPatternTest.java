@@ -2,6 +2,9 @@ package com.my.javabasic;
 
 import com.my.javabasic.designpattern.decorate.*;
 import com.my.javabasic.designpattern.proxy.*;
+import com.my.javabasic.designpattern.responsibilitychain.HtmlTextSecurityHandler;
+import com.my.javabasic.designpattern.responsibilitychain.ScriptTextSecurityHandler;
+import com.my.javabasic.designpattern.responsibilitychain.TextSecurityHandlerChain;
 import com.my.javabasic.designpattern.singleton.HungrySingleton;
 import com.my.javabasic.designpattern.singleton.LazySingleton;
 import com.my.javabasic.designpattern.strategy.*;
@@ -17,7 +20,7 @@ import java.lang.reflect.Proxy;
 public class DesignPatternTest {
 
     @Test
-    public void getInstanceWithSingleton() {
+    public void singleton_get_one_instance() {
         LazySingleton instance1 = LazySingleton.getInstance();
         LazySingleton instance2 = LazySingleton.getInstance();
         if (instance1 == instance2) {
@@ -33,11 +36,10 @@ public class DesignPatternTest {
             System.out.println("instance4.hashCode=" + instance4.hashCode());
             System.out.println("两个实例相等，属于同一个实例.");
         }
-
     }
 
     @Test
-    public void testStrategy() {
+    public void strategy_test() {
 
         StrategyContext context = new StrategyContext();
 
@@ -62,8 +64,11 @@ public class DesignPatternTest {
         System.out.println("应用策略3后的价格为：" + finalPrice);
     }
 
+    /**
+     * 静态代理
+     */
     @Test
-    public void testStaticProxy() {
+    public void static_proxy_test() {
         AbstractApprover approver = new ConcreteApprover();
         AbstractApprover approverProxy = new ApproverProxyBasedStatic(approver);
         approverProxy.approve("请假申请");
@@ -73,7 +78,7 @@ public class DesignPatternTest {
      * 测试基于接口的动态代理
      */
     @Test
-    public void testDynamicProxyBasedInterface() {
+    public void dynamic_proxy_based_interface_test() {
         ApproverProxyBasedInterface handler = new ApproverProxyBasedInterface();
         AbstractApprover approverProxy = (AbstractApprover) handler.newProxyInstance(new ConcreteApprover());
         //验证是否是代理类
@@ -89,7 +94,7 @@ public class DesignPatternTest {
      * 测试基于Cglib的动态代理
      */
     @Test
-    public void testDynamicProxyBasedCglib() {
+    public void dynamic_proxy_based_cglib_test() {
         ConcreteApprover approver = new ConcreteApprover();
         ApproverProxyBasedCglib cglibProxy = new ApproverProxyBasedCglib();
         AbstractApprover approverProxy = (AbstractApprover) cglibProxy.newProxyInstance(approver);
@@ -98,10 +103,10 @@ public class DesignPatternTest {
     }
 
     /**
-     * 测试基于Cglib的动态代理
+     * 装饰模式测试
      */
     @Test
-    public void testDecorate() {
+    public void decorate_test() {
         ICup normalCup = new Cup();
         System.out.println("正常杯子：" + normalCup.getCup().toString());
 
@@ -119,9 +124,21 @@ public class DesignPatternTest {
      * 状态模式测试
      */
     @Test
-    public void testState() {
+    public void state_test() {
 
 
     }
 
+    /**
+     * 职责链模式
+     */
+    @Test
+    public void responsibility_chain_test() {
+        TextSecurityHandlerChain chain = new TextSecurityHandlerChain();
+        chain.addSecurityHandler(new HtmlTextSecurityHandler())
+                .addSecurityHandler(new ScriptTextSecurityHandler());
+        String source = "<div>hello world这个是标题<script></div>";
+        String target = chain.applyHandle(source);
+        System.out.println("处理后最终字符串为:" + target);
+    }
 }
