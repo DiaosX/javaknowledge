@@ -1,4 +1,4 @@
-package com.my.javabasic.spring.aop;
+package com.my.javabasic.spring.aop.pointcutaspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -76,24 +76,18 @@ import org.springframework.core.annotation.Order;
 *
 * */
 
-/*
- *多个拦截器对同一个连接点切入时，如果不使用@Order指定顺序，则拦截器执行的顺序未知
- *如果想要按照一定顺序执行同一个连接点的拦截器，则可以使用@Order注解指定顺序，数字越小越先执行
- *
- */
-
 
 @Configuration
 @Aspect
-@Order(1)
-public class SubjectAspect1 {
+@Order(2)
+public class SubjectAspect2 {
 
     /**
      * 切入点
      */
-    @Pointcut("execution(* com.my.javabasic.spring.aop..*.*(..))")
+    @Pointcut("execution(* com.my.javabasic.spring.aop.pointcutaspect..*.*(..))")
     private void subjectPointcut() {
-        System.out.println("[SubjectAspect1]here is Pointcut");
+        System.out.println("[SubjectAspect2]here is Pointcut");
 
     }
 
@@ -105,7 +99,7 @@ public class SubjectAspect1 {
     @Before("subjectPointcut() && this(proxy)")
     public void doActionBefore(JoinPoint joinPoint, Object proxy) {
         System.out.println(proxy.getClass().getName());
-        System.out.println("[SubjectAspect1]Before-执行连接点方法之前执行");
+        System.out.println("[SubjectAspect2]Before-执行连接点方法之前执行");
     }
 
     /**
@@ -115,7 +109,7 @@ public class SubjectAspect1 {
      */
     @After("subjectPointcut()")
     public void doActionAfter(JoinPoint joinPoint) {
-        System.out.println("[SubjectAspect1]After-执行连接点方法之后执行");
+        System.out.println("[SubjectAspect2]After-执行连接点方法之后执行");
 
     }
 
@@ -127,11 +121,11 @@ public class SubjectAspect1 {
      */
     @Around(value = "subjectPointcut()")
     public Object doActionAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        System.out.println("[SubjectAspect1]Around-执行链接点方法之前");
+        System.out.println("[SubjectAspect2]Around-执行链接点方法之前");
         // proceeding
         Object proceedResult = proceedingJoinPoint.proceed();
 
-        System.out.println("[SubjectAspect1]Around-执行链接点方法之后");
+        System.out.println("[SubjectAspect2]Around-执行链接点方法之后");
         //return
         return proceedResult;
     }
@@ -144,11 +138,11 @@ public class SubjectAspect1 {
      */
     @AfterThrowing(value = "subjectPointcut()", throwing = "exception")
     public void doActionAfterThrowingAdvice(JoinPoint joinPoint, Throwable exception) {
-        System.out.println("[SubjectAspect1]AfterThrowing-扔出异常了.");
+        System.out.println("[SubjectAspect2]AfterThrowing-扔出异常了.");
     }
 
     @AfterReturning(value = "subjectPointcut()")
     public void doActionAfterReturningAdvice(JoinPoint joinPoint) {
-        System.out.println("[SubjectAspect1]AfterReturning-返回之前执行.");
+        System.out.println("[SubjectAspect2]AfterReturning-返回之前执行.");
     }
 }

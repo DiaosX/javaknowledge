@@ -1,4 +1,4 @@
-package com.my.javabasic.spring.aop;
+package com.my.javabasic.spring.aop.pointcutaspect;
 
 import org.springframework.stereotype.Component;
 

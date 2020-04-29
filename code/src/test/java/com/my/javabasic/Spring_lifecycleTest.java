@@ -4,7 +4,6 @@ package com.my.javabasic;
 import com.my.javabasic.spring.annotation.InjectByConstructor;
 import com.my.javabasic.spring.annotation.InjectByField;
 import com.my.javabasic.spring.annotation.InjectBySetter;
-import com.my.javabasic.spring.aop.Subject;
 import com.my.javabasic.spring.lifecycle.MyApplicationContextAware;
 import com.my.javabasic.spring.lifecycle.MyBean;
 import org.junit.Assert;
@@ -38,26 +37,4 @@ public class Spring_lifecycleTest {
         System.out.println(propBean.toString());
         System.out.println(setterBean.toString());
     }
-
-
-    @Test
-    public void testAopWithNoException() {
-        Subject myBean = (Subject) MyApplicationContextAware.getContext().getBean("subject");
-        try {
-            myBean.sayHello(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testAopWithException() {
-        Subject myBean = (Subject) MyApplicationContextAware.getContext().getBean("subject");
-        try {
-            myBean.sayHello(true);
-        } catch (Exception e) {
-            //e.printStackTrace();
-        }
-    }
-
 }
