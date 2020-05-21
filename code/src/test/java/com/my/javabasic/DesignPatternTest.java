@@ -1,5 +1,7 @@
 package com.my.javabasic;
 
+import com.my.javabasic.designpattern.bridge.homeappliance.*;
+import com.my.javabasic.designpattern.bridge.packagebuild.*;
 import com.my.javabasic.designpattern.decorate.*;
 import com.my.javabasic.designpattern.proxy.*;
 import com.my.javabasic.designpattern.responsibilitychain.HtmlTextSecurityHandler;
@@ -140,5 +142,58 @@ public class DesignPatternTest {
         String source = "<div>hello world这个是标题<script></div>";
         String target = chain.applyHandle(source);
         System.out.println("处理后最终字符串为:" + target);
+    }
+
+    /**
+     * 桥接模式测试
+     * 家电品牌实列
+     */
+    @Test
+    public void bridge_test_home_appliance() {
+        AbstractBrand haierBrand = new HaierBrand();
+        AbstractBrand meidiBrand = new MeiDiBrand();
+
+        Appliance appliance = new WashingAppliance();
+        //海尔洗衣机
+        haierBrand.setAppliance(appliance);
+        haierBrand.run();
+        //美的洗衣机
+        meidiBrand.setAppliance(appliance);
+        meidiBrand.run();
+
+        appliance = new FridgeAppliance();
+        //海尔电冰箱
+        haierBrand.setAppliance(appliance);
+        haierBrand.run();
+        //美的电冰箱
+        meidiBrand.setAppliance(appliance);
+        meidiBrand.run();
+    }
+
+    /**
+     * 桥接模式之包制作
+     */
+    @Test
+    public void bridge_test_package_build() {
+        PackageBuildReq req = new PackageBuildReq();
+        PackageBuildExecutor executor = new AndroidPakageBuildExecutor();
+
+        //Android操作系统Tbox包制作
+        PackageBuildProvider tboxProvider = new TBoxPackageBuildProvider();
+        PackageBuildProvider avnProvider = new AvnPackageBuildProvider();
+        executor.setPackageBuildProvider(tboxProvider);
+        executor.execute(req);
+
+        //Android操作系统Avn包制作
+        executor.setPackageBuildProvider(avnProvider);
+        executor.execute(req);
+
+        executor = new LinuxPakageBuildExecutor();
+        //Linux系统tbox包制作
+        executor.setPackageBuildProvider(tboxProvider);
+        executor.execute(req);
+        //Linux系统avn包制作
+        executor.setPackageBuildProvider(avnProvider);
+        executor.execute(req);
     }
 }
