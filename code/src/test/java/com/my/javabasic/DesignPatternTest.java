@@ -1,8 +1,17 @@
 package com.my.javabasic;
 
+import com.my.javabasic.designpattern.adapter.Adaptee;
+import com.my.javabasic.designpattern.adapter.Adapter;
+import com.my.javabasic.designpattern.adapter.ITarget;
 import com.my.javabasic.designpattern.bridge.homeappliance.*;
 import com.my.javabasic.designpattern.bridge.packagebuild.*;
 import com.my.javabasic.designpattern.decorate.*;
+import com.my.javabasic.designpattern.pipeline.*;
+import com.my.javabasic.designpattern.pipeline.handler.OneBusinessHandler;
+import com.my.javabasic.designpattern.pipeline.handler.TwoBusinessHandler;
+import com.my.javabasic.designpattern.pipeline2.Handler;
+import com.my.javabasic.designpattern.pipeline2.MyHandler1;
+import com.my.javabasic.designpattern.pipeline2.MyHandler2;
 import com.my.javabasic.designpattern.proxy.*;
 import com.my.javabasic.designpattern.responsibilitychain.HtmlTextSecurityHandler;
 import com.my.javabasic.designpattern.responsibilitychain.ScriptTextSecurityHandler;
@@ -10,6 +19,7 @@ import com.my.javabasic.designpattern.responsibilitychain.TextSecurityHandlerCha
 import com.my.javabasic.designpattern.singleton.HungrySingleton;
 import com.my.javabasic.designpattern.singleton.LazySingleton;
 import com.my.javabasic.designpattern.strategy.*;
+import com.my.javabasic.designpattern.visitor.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -195,5 +205,54 @@ public class DesignPatternTest {
         //Linux系统avn包制作
         executor.setPackageBuildProvider(avnProvider);
         executor.execute(req);
+    }
+
+    /**
+     * 适配器模式测试
+     */
+    @Test
+    public void adapter_test() {
+        Adaptee adaptee = new Adaptee();
+        ITarget target = new Adapter(adaptee);
+        target.print("adapter test");
+    }
+
+    /**
+     * 适配器模式测试
+     */
+    @Test
+    public void visitor_test() {
+        DataContext context = new DataContext();
+        IElement oneEle = new ElementOne();
+        IElement twoEle = new ElementTwo();
+        context.addElement(oneEle);
+        context.addElement(twoEle);
+        IVisitor one = new OneVisitor();
+        context.tryExecute(one);
+    }
+
+    @Test
+    public void pipeline_test() {
+        HandlerContext ctx = new HandlerContext();
+        ctx.setIndex(0);
+        BusinessHandler<HandlerContext> handlerOne = new OneBusinessHandler();
+        BusinessHandler<HandlerContext> handlerTwo = new TwoBusinessHandler();
+        DefaultHandlerPipeline<HandlerContext> pipeline = new DefaultHandlerPipeline<>();
+        pipeline.addValve(handlerOne);
+        pipeline.addValve(handlerTwo);
+        pipeline.invoke(ctx);
+    }
+
+    @Test
+    public void pipeline_2_test() {
+        com.my.javabasic.designpattern.pipeline2.HandlerPipeline pipe = new com.my.javabasic.designpattern.pipeline2.HandlerPipeline();
+        Handler handler1 = new MyHandler1();
+        Handler handler2 = new MyHandler2();
+        //pipe.addFirst(handler1);
+        // pipe.addFirst(handler2);
+        com.my.javabasic.designpattern.pipeline2.DataContext data = new com.my.javabasic.designpattern.pipeline2.DataContext();
+        data.setName("john");
+        data.setSum(100);
+        pipe.invoke(data);
     }
 }
